@@ -3598,7 +3598,7 @@ function GUI:Delete()
     end
 
     local folderName = GUI.Settings.Config.FolderName or "ProjectX"
-    local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "Ashlabs"
+    local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "ProjectX"
 
     if isfile(folderName .. "/" .. fileName .. ".json") then
         delfile(folderName .. "/" .. fileName .. ".json")
