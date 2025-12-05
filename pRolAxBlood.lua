@@ -1095,7 +1095,7 @@ function GUI:ShowSettingsTab()
                 text = "Auto Load Saves", 
                 flag = "GLOBAL_AutoLoad",
                 default = (function()
-                    local folderName = "AshLabs"
+                    local folderName = "ProjectX"
                     local fileName = "_GLOBAL"
                     local HttpService = game:GetService("HttpService")
                     local configPath = folderName .. "/" .. fileName .. ".json"
@@ -1138,7 +1138,7 @@ function GUI:ShowSettingsTab()
             parent = GUI.SettingsContent,
             text = "Close GUI",
             callback = function()
-                _G.AshLibs:Destroy()
+                _G.ProLax:Destroy()
             end
         })
     end
@@ -3555,7 +3555,7 @@ function GUI:Save()
     end
 
     local HttpService = game:GetService("HttpService")
-    local folderName = GUI.Settings.Config.FolderName or "Ashlabs"
+    local folderName = GUI.Settings.Config.FolderName or "ProjectX"
     local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "Ashlabs"
     local settingsData = {}
 
@@ -3597,7 +3597,7 @@ function GUI:Delete()
         return
     end
 
-    local folderName = GUI.Settings.Config.FolderName or "Ashlabs"
+    local folderName = GUI.Settings.Config.FolderName or "ProjectX"
     local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "Ashlabs"
 
     if isfile(folderName .. "/" .. fileName .. ".json") then
@@ -3611,8 +3611,8 @@ function GUI:Load()
     end
 
     local HttpService = game:GetService("HttpService")
-    local folderName = GUI.Settings.Config.FolderName or "Ashlabs"
-    local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "Ashlabs"
+    local folderName = GUI.Settings.Config.FolderName or "ProjectX"
+    local fileName = GUI.Settings.Config.FileName or GUI.Settings.Name or "ProjectX"
 
     if not isfile(folderName .. "/" .. fileName .. ".json") then
         return
