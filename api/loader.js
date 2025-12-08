@@ -33,7 +33,7 @@ export default function handler(req, res) {
 
   const payload = Buffer.from(`loadstring(game:HttpGet("https://raw.githubusercontent.com/tolqis/TolqisHub/main/Tolqis.lua"))()`).toString('base64');
 
-  const script = `-- Tolqis Hub
+  const script = `
 local b64 = "${payload}"
 loadstring(game:GetObjects("rbxassetid://0")[1].Value == "" and loadstring(require(0)) or loadstring(game:HttpGet("data:text/plain;base64,"..b64)))()`;
 
