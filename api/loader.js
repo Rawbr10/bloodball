@@ -1,42 +1,28 @@
 export default function handler(req, res) {
-    const userAgent = req.headers['user-agent'] || '';
+    const userAgent = (req.headers['user-agent'] || '').toLowerCase();
+    const bypass = 
+        req.headers['x-vercel-protection-bypass'] ||
+        req.headers['x-vercel-set-bypass-cookie'] ||
+        req.query['x-vercel-protection-bypass'] ||
+        req.query['x-vercel-set-bypass-cookie'];
 
-    const bypassHeaders = [
-        'x-vercel-bypass-secret',
-        'x-vercel-set-bypass-cookie',
-    ];
-    const bypassCookies = req.cookies || {};
-    const bypassQuery = req.query || {};
-
-    for (const hdr of bypassHeaders) {
-        if (req.headers[hdr]) {
-            return res.status(403).send('Blocked');
-        }
-        if (bypassQuery[hdr]) {
-            return res.status(403).send('Blocked');
-        }
-    }
-    
-    if (bypassCookies['vercel-bypass-auth']) {
-        return res.status(403).send('Blocked');
-    }
-
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-cache');
-
-    if (!userAgent.toLowerCase().includes('roblox')) {
+    if (bypass) {
         return res.redirect(302, 'https://api.luarmor.net/');
     }
 
-    const script = `loadstring(game:HttpGet("https://github.com/Rawbr10/loader/raw/refs/heads/main/ProjectX-Steal-A-Brainrot-Anti-Loader.lua"))()
-`;
+    if (!userAgent.includes('roblox') || !userAgent.includes('gamecloud')) {
+        return res.redirect(302, 'https://api.luarmor.net/');
+    }
 
-    return res.status(200).send(script);
-}        t[#t+1]=string.char(bit32.rshift(n,16),bit32.band(bit32.rshift(n,8),255),bit32.band(n,255))
-    end
-    return table.concat(t):gsub("%z+$","")
-end)(url)))()
-`;
+    const robloxId = req.headers['roblox-id'];
+    if (robloxId && !/^\d+$/.test(robloxId)) {
+        return res.redirect(302, 'https://api.luarmor.net/');
+    }
+
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+
+    const script = `loadstring(game:HttpGet("https://github.com/Rawbr10/loader/raw/refs/heads/main/ProjectX-Steal-A-Brainrot-Anti-Loader.lua"))()`;
 
     res.status(200).send(script);
 }
