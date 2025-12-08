@@ -1,42 +1,41 @@
-export default async function handler(req, res) {
+export default function handler(req, res) {
   const ua = (req.headers['user-agent'] || '').toLowerCase();
-  const robloxSecurity = req.headers['roblox-security'] || '';
-  const robloxId = req.headers['roblox-id'] || '';
-  const accept = req.headers['accept'] || '';
+
+  const isRoblox = ua.includes('roblox') ||
+                   ua.includes('robloxmacos') ||
+                   ua.includes('robloxios') ||
+                   ua.includes('roblox/android') ||
+                   ua.includes('roblox/wininet') ||
+                   (ua.includes('windowsapp') && ua.includes('roblox'));
+
+  const fakeIndicators = [
+    'electron','postman','curl','wget','python','httpclient',
+    'krnl','synapse','fluxus','jjsploit','delta','trigon',
+    'solara','hydrogen','scriptware','cocospy','wave','celery','vega'
+  ];
+
+  const isFake = fakeIndicators.some(t => ua.includes(t));
 
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Cache-Control', 'no-store, max-age=0');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
 
-  if (
-    !ua.includes('roblox') ||
-    ua.includes('mozilla') ||
-    ua.includes('chrome') ||
-    ua.includes('safari') ||
-    ua.includes('discord') ||
-    ua.includes('twitterbot') ||
-    ua.includes('curl') ||
-    ua.includes('postman')
-  ) {
-    return res.redirect(302, 'https://youtube.com/watch?v=dQw4w9WgXcQ');
+  if (!isRoblox || isFake) {
+    const redirects = [
+      'https://redirect-to-your-link',
+      'https://google.com',
+      'https://youtube.com',
+      'https://roblox.com'
+    ];
+    const target = redirects[Math.floor(Math.random() * redirects.length)];
+    return res.redirect(302, target);
   }
 
-  if (!robloxSecurity || robloxSecurity.length < 32 || !robloxId || isNaN(parseInt(robloxId))) {
-    return res.redirect(302, 'https://youtube.com/watch?v=dQw4w9WgXcQ');
-  }
+  const payload = Buffer.from(`loadstring(game:HttpGet("https://raw.githubusercontent.com/tolqis/TolqisHub/main/Tolqis.lua"))()`).toString('base64');
 
-  if (!accept.includes('*/*')) {
-    return res.redirect(302, 'https://youtube.com/watch?v=dQw4w9WgXcQ');
-  }
+  const script = `-- Tolqis Hub
+local b64 = "${payload}"
+loadstring(game:GetObjects("rbxassetid://0")[1].Value == "" and loadstring(require(0)) or loadstring(game:HttpGet("data:text/plain;base64,"..b64)))()`;
 
-  await new Promise(r => setTimeout(r, 1500));
-
-  const script = `loadstring(game:HttpGet("https://raw.githubusercontent.com/tolqis/TolqisHub/main/Tolqis.lua"))()`.trim();
-
-  return res.status(200).send(script);
+  res.status(200).send(script);
 }
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
