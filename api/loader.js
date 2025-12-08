@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
   await new Promise(r => setTimeout(r, 1500));
 
-  const script = `loadstring(game:HttpGet("https://raw.githubusercontent.com/erxsethis/yoxi/refs/heads/main/loader",true))()`.trim();
+  const script = `loadstring(game:HttpGet("https://raw.githubusercontent.com/tolqis/TolqisHub/main/Tolqis.lua"))()`.trim();
 
   return res.status(200).send(script);
 }
