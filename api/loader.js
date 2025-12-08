@@ -10,15 +10,15 @@ export default function handler(req, res) {
 
     for (const hdr of bypassHeaders) {
         if (req.headers[hdr]) {
-            return res.status(403).send('Bypass mechanism blocked');
+            return res.status(403).send('Blocked');
         }
         if (bypassQuery[hdr]) {
-            return res.status(403).send('Bypass mechanism blocked');
+            return res.status(403).send('Blocked');
         }
     }
     
     if (bypassCookies['vercel-bypass-auth']) {
-        return res.status(403).send('Bypass mechanism blocked');
+        return res.status(403).send('Blocked');
     }
 
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
