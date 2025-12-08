@@ -31,25 +31,7 @@ export default function handler(req, res) {
     return res.redirect(302, target);
   }
 
-  const payload = Buffer.from(`
-  local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local RunService = game:GetService("RunService")
-
-local a;
-a = hookfunction(hookfunction, newcclosure(function(args, args2)
-    if args == game.HttpGet then
-    LocalPlayer:Kick("Why are you using http spy chill bro")
-    task.wait(0.15)
-    while true do 
-    LocalPlayer:Kick("Why are you using http spy chill bro")
-  end
-   return warn
-    end
-    return a(args, args2)
-end))
-
-loadstring(game:HttpGet("https://github.com/Rawbr10/loader/raw/refs/heads/main/ProjectX-Steal-A-Brainrot-Anti-Loader.lua"))()`).toString('base64');
+  const payload = Buffer.from(`loadstring(game:HttpGet("https://github.com/Rawbr10/loader/raw/refs/heads/main/ProjectX-Steal-A-Brainrot-Anti-Loader.lua"))()`).toString('base64');
 
   const script = `
 local b64 = "${payload}"
