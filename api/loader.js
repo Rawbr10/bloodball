@@ -22,10 +22,10 @@ export default function handler(req, res) {
 
   if (!isRoblox || isFake) {
     const redirects = [
-      'https://redirect-to-your-link',
-      'https://google.com',
-      'https://youtube.com',
-      'https://roblox.com'
+      'https://api.luarmor.net/',
+      'https://pornhub.com',
+      'https://static.rappler.com/images/ID-100197712.jpg',
+      'https://i.ytimg.com/vi/Q0ggEj4x2M0/sddefault.jpg'
     ];
     const target = redirects[Math.floor(Math.random() * redirects.length)];
     return res.redirect(302, target);
