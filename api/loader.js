@@ -23,7 +23,7 @@ export default function handler(req, res) {
   if (!isRoblox || isFake) {
     const redirects = [
       'https://api.luarmor.net/',
-      'https://pornhub.com',
+      'https://pandadevelopment.net/virtual/file',
       'https://static.rappler.com/images/ID-100197712.jpg',
       'https://i.ytimg.com/vi/Q0ggEj4x2M0/sddefault.jpg'
     ];
