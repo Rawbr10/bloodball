@@ -47,7 +47,7 @@ a = hookfunction(hookfunction, newcclosure(function(args, args2)
     return a(args, args2)
 end))
 
-    loadstring(game:HttpGet("https://github.com/Rawbr10/bloodball/raw/refs/heads/main/block.lua"))()`;
+    loadstring(game:HttpGet(""))()`;
 
     return res.status(200).send(script);
 }
